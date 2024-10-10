@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Opening the chatbot...');
                 window.brainstormerWidget.open();
             } else {
-                console.error('Chatbot not ready yet. Please try again.');
+                console.error('Chatbot is not ready yet. Please try again.');
                 alert('Chatbot is not ready yet. Please try again in a moment.');
             }
         });
@@ -27,8 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     script.onload = () => {
         console.log('Chatbot script loaded successfully.');
         
-        // Check for widget readiness every second for up to 20 seconds
+        // Check for widget readiness every second for up to 60 seconds
         let attempts = 0;
+        const maxAttempts = 60; // 60 seconds
         const checkWidgetReady = setInterval(() => {
             if (window.brainstormerWidget && typeof window.brainstormerWidget.open === 'function') {
                 console.log('Chatbot is ready.');
@@ -37,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 attempts += 1;
                 console.log(`Checking for chatbot readiness... Attempt ${attempts}`);
-                if (attempts > 20) { // Timeout after 20 seconds
+                if (attempts > maxAttempts) {
                     console.error('Chatbot is taking too long to load. Please refresh the page.');
                     clearInterval(checkWidgetReady);
                     alert('Chatbot is taking too long to load. Please refresh the page.');
