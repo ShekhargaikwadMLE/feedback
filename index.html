@@ -3,9 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Chatbot Test</title>
+    <title>Sukoon Meetup Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        h1 {
+            color: #263FA9;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555555;
+        }
+        .chat-button {
+            background-color: #263FA9;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .chat-button:hover {
+            background-color: #1a2e7a;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #888888;
+        }
+    </style>
 </head>
 <body>
-    <script src="https://widget.brainstormer.io/js/script.js" bot-id="52ac689d_be2a_4497_9587_11d0c390a523" primary-color="263FA9"></script>
+    <div class="container">
+        <h1>Welcome to Sukoon Meetup Feedback</h1>
+        <p>
+            Thank you for attending the Sukoon Meetup! We value your feedback and would love to hear your thoughts. Click the button below to share your feedback through our chat assistant.
+        </p>
+        <button class="chat-button" id="feedbackButton" disabled>Loading...</button>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 People+AI. All Rights Reserved.
+    </div>
+
+    <!-- Chat Widget Script -->
+    <script src="https://widget.brainstormer.io/js/script.js" bot-id="127e8ae6_fdde_44cd_9540_286fb7038f47" primary-color="263FA9"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const feedbackButton = document.getElementById('feedbackButton');
+
+            console.log("Checking if the chat widget is ready...");
+
+            // Wait for the widget to be ready before enabling the button
+            const checkWidgetReady = setInterval(function() {
+                if (window.brainstormerWidget && window.brainstormerWidget.open) {
+                    console.log("Chat widget is ready.");
+                    feedbackButton.textContent = 'Give Feedback';
+                    feedbackButton.disabled = false;
+                    feedbackButton.onclick = function() {
+                        console.log("Opening chat widget...");
+                        window.brainstormerWidget.open();
+                    };
+                    clearInterval(checkWidgetReady);
+                } else {
+                    console.log("Chat widget not ready yet.");
+                }
+            }, 500); // Check every 500 milliseconds
+        });
+    </script>
 </body>
 </html>
